@@ -3,10 +3,7 @@ package com.worldpay.web;
 import com.worldpay.domain.Offers;
 import com.worldpay.service.WorldPayService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,12 +23,20 @@ public class WorldPayController{
     }
 
     @PostMapping("/worldpay/createOffers")
-    public void createOffersByMerchant(@RequestParam String offer, @RequestParam String price){
-        worldPayService.addOffersByMerchant(offer, price);
+    public void createOffersByMerchant(@RequestParam String offer,
+                                       @RequestParam String price, @RequestParam String validity){
+
+        worldPayService.addOffersByMerchant(offer, price, validity);
     }
 
     @GetMapping("/worldpay/availableOffers")
     public List<Offers> availableOffersByMerchant(){
         return worldPayService.getOffersByMerchant();
+    }
+
+    @PutMapping("/worldpay/cancelOffers")
+    public void cancelOffersByMerchant(@RequestParam String offer){
+
+        worldPayService.cancelOffersByMerchant(offer);
     }
 }

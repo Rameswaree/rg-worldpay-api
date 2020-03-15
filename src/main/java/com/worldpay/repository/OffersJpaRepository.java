@@ -11,4 +11,6 @@ public interface OffersJpaRepository extends JpaRepository<Offers,Integer> {
 
     Offers save(Offers offers);
     List<Offers> findAll();
+
+    Offers findByOffer(String offer);
 }

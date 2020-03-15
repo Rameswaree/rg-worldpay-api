@@ -8,7 +8,9 @@ import java.util.List;
 @Repository
 public interface WorldPayService {
 
-    void addOffersByMerchant(String offer, String price);
+    void addOffersByMerchant(String offer, String price, String validity);
 
     List<Offers> getOffersByMerchant();
+
+    void cancelOffersByMerchant(String offer);
 }

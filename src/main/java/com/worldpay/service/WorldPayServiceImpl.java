@@ -11,8 +11,9 @@ import java.util.List;
 @Service
 public class WorldPayServiceImpl implements WorldPayService {
 
-    public static final String VALIDITY="60";
-
+    private static final String ACTIVE_STATUS="ACTIVE";
+    private static final String EXPIRED_STATUS="EXPIRED";
+    private static final String CURRENCY="GBP";
     private OffersJpaRepository offersJpaRepository;
 
     @Autowired
@@ -21,9 +22,9 @@ public class WorldPayServiceImpl implements WorldPayService {
     }
 
     @Override
-    public void addOffersByMerchant(String offer, String price) {
+    public void addOffersByMerchant(String offer, String price, String validity) {
 
-        Offers result = setNewOffer(offer, price);
+        Offers result = setNewOffer(offer, price, validity);
         offersJpaRepository.save(result);
     }
 
@@ -32,14 +33,31 @@ public class WorldPayServiceImpl implements WorldPayService {
         return offersJpaRepository.findAll();
     }
 
-    private Offers setNewOffer(String offer, String price) {
+    @Override
+    public void cancelOffersByMerchant(String offer) {
+        Offers byOffer = offersJpaRepository.findByOffer(offer);
+
+        if(!EXPIRED_STATUS.equalsIgnoreCase(byOffer.getStatusOffer())){
+            byOffer.setEndDate(LocalDateTime.now());
+            byOffer.setStatusOffer(EXPIRED_STATUS);
+            offersJpaRepository.save(byOffer);
+        }
+    }
+
+    private Offers setNewOffer(String offer, String price, String validity) {
         Offers offers = new Offers();
 
+        Offers byOffer = offersJpaRepository.findByOffer(offer);
+        if(byOffer!=null){
+            return byOffer;
+        }
         offers.setOffer(offer);
         offers.setPrice(price);
+        offers.setCurrency(CURRENCY);
         offers.setStartDate(LocalDateTime.now());
-        offers.setValidity(VALIDITY);
-        offers.setEndDate(offers.getStartDate().plusMonths(Long.parseLong(VALIDITY)));
+        offers.setValidity(validity);
+        offers.setEndDate(offers.getStartDate().plusDays(Long.parseLong(validity)));
+        offers.setStatusOffer(ACTIVE_STATUS);
         return offers;
     }
 }

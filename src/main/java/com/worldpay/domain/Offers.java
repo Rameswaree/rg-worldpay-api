@@ -21,6 +21,9 @@ public class Offers implements Serializable {
     @Column(name = "price")
     private String price;
 
+    @Column(name="currency")
+    private String currency;
+
     @Column(name = "validity")
     private String validity;
 
@@ -29,6 +32,9 @@ public class Offers implements Serializable {
 
     @Column(name = "dtmEndDate")
     private LocalDateTime endDate;
+
+    @Column(name="status")
+    private String statusOffer;
 
     public int getId() {
         return id;
@@ -52,6 +58,14 @@ public class Offers implements Serializable {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getValidity() {
@@ -78,15 +92,25 @@ public class Offers implements Serializable {
         this.endDate = endDate;
     }
 
+    public String getStatusOffer() {
+        return statusOffer;
+    }
+
+    public void setStatusOffer(String statusOffer) {
+        this.statusOffer = statusOffer;
+    }
+
     @Override
     public String toString() {
         return new ToStringCreator(this)
                 .append("id" , id)
                 .append("offer", offer)
                 .append("price" , price)
+                .append("currency", currency)
                 .append("validity",  validity)
                 .append("startDate", startDate)
                 .append("endDate" , endDate)
+                .append("status", statusOffer)
                 .toString();
     }
 }
