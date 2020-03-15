@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WorldPayApplication{
 
       public static void main(String[] args){
-            SpringApplication.run(WorlPayApplication.class,args);
+            SpringApplication.run(WorldPayApplication.class,args);
       }
 }
