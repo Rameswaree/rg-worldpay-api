@@ -2,6 +2,7 @@ package com.worldpay.web;
 
 import com.worldpay.service.WorldPayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 /**
@@ -19,8 +20,13 @@ public class WorldPayController{
         this.worldPayService = worldPayService;
     }
 
-    @PostMapping("/worldpay/offers")
+    @PostMapping("/worldpay/createOffers")
     public void createOffersByMerchant(){
         worldPayService.addOffersByMerchant();
+    }
+
+    @GetMapping("worldpay/availableOffers")
+    public void availableOffersByMerchant(){
+        worldPayService.getOffersByMerchant();
     }
 }

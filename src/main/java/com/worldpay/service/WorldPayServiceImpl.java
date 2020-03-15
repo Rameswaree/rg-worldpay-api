@@ -9,4 +9,9 @@ public class WorldPayServiceImpl implements WorldPayService {
     public void addOffersByMerchant() {
 
     }
+
+    @Override
+    public void getOffersByMerchant() {
+
+    }
 }
