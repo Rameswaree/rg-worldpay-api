@@ -12,7 +12,7 @@ public class Offers implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "intOfferId")
+    @Column(name = "intOfferId", nullable = false)
     private int id;
 
     @Column(name = "vchOffer")
@@ -22,7 +22,7 @@ public class Offers implements Serializable {
     private String price;
 
     @Column(name = "validity")
-    private int validity;
+    private String validity;
 
     @Column(name = "dtmStartDate")
     private LocalDateTime startDate;
@@ -54,11 +54,11 @@ public class Offers implements Serializable {
         this.price = price;
     }
 
-    public int getValidity() {
+    public String getValidity() {
         return validity;
     }
 
-    public void setValidity(int validity) {
+    public void setValidity(String validity) {
         this.validity = validity;
     }
 

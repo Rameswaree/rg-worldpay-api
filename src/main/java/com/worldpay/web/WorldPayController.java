@@ -26,11 +26,11 @@ public class WorldPayController{
     }
 
     @PostMapping("/worldpay/createOffers")
-    public void createOffersByMerchant(@RequestParam String offer){
-        worldPayService.addOffersByMerchant(offer);
+    public void createOffersByMerchant(@RequestParam String offer, @RequestParam String price){
+        worldPayService.addOffersByMerchant(offer, price);
     }
 
-    @GetMapping("worldpay/availableOffers")
+    @GetMapping("/worldpay/availableOffers")
     public List<Offers> availableOffersByMerchant(){
         return worldPayService.getOffersByMerchant();
     }
