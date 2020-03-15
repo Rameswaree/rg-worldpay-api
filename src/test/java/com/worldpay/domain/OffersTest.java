@@ -11,6 +11,7 @@ public class OffersTest {
    private Offers offers;
 
    private static final String VALIDITY="365";
+   private static final String OFFER="NEW_YEAR";
 
    @BeforeEach
     void setUp(){
@@ -28,5 +29,19 @@ public class OffersTest {
     void shouldReturnNullWhenValidityIsNotSet(){
 
         assertNull(offers.getValidity());
+    }
+
+
+    @Test
+    void shouldReturnOfferWhenOfferIsSet(){
+        offers.setOffer(OFFER);
+
+        assertThat(offers.getOffer().equals(OFFER));
+    }
+
+    @Test
+    void shouldReturnNullWhenOfferIsNotSet(){
+
+        assertNull(offers.getOffer());
     }
 }

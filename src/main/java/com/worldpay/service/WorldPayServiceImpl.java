@@ -55,8 +55,9 @@ public class WorldPayServiceImpl implements WorldPayService {
         offers.setPrice(price);
         offers.setCurrency(CURRENCY);
         offers.setStartDate(LocalDateTime.now());
+        LocalDateTime startDate = offers.getStartDate();
         offers.setValidity(validity);
-        offers.setEndDate(offers.getStartDate().plusDays(Long.parseLong(validity)));
+        offers.setEndDate(startDate.plusDays(Long.parseLong(validity)));
         offers.setStatusOffer(ACTIVE_STATUS);
         return offers;
     }
