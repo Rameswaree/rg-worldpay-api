@@ -1,10 +1,15 @@
 package com.worldpay.web;
 
+import com.worldpay.domain.Offers;
 import com.worldpay.service.WorldPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 /**
  * Controller class
  * @author rameswaree@gmail.com
@@ -21,12 +26,12 @@ public class WorldPayController{
     }
 
     @PostMapping("/worldpay/createOffers")
-    public void createOffersByMerchant(){
-        worldPayService.addOffersByMerchant();
+    public void createOffersByMerchant(@RequestParam String offer){
+        worldPayService.addOffersByMerchant(offer);
     }
 
     @GetMapping("worldpay/availableOffers")
-    public void availableOffersByMerchant(){
-        worldPayService.getOffersByMerchant();
+    public List<Offers> availableOffersByMerchant(){
+        return worldPayService.getOffersByMerchant();
     }
 }

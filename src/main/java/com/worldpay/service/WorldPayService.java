@@ -1,11 +1,14 @@
 package com.worldpay.service;
 
+import com.worldpay.domain.Offers;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface WorldPayService {
 
-    void addOffersByMerchant();
+    void addOffersByMerchant(String offer);
 
-    void getOffersByMerchant();
+    List<Offers> getOffersByMerchant();
 }
