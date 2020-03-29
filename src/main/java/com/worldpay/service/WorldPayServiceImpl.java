@@ -74,6 +74,8 @@ public class WorldPayServiceImpl implements WorldPayService {
                     return;
                 }
                 byOffer.setPrice(price);
+                if(EXPIRED_STATUS.equalsIgnoreCase(byOffer.getStatus()))
+                    byOffer.setStatus(ACTIVE_STATUS);
             }catch (Exception e){
                 LOGGER.error("Exception occurred during offer updation: " + e);
             }
