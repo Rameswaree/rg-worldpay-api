@@ -34,7 +34,7 @@ public class Offers implements Serializable {
     private LocalDateTime endDate;
 
     @Column(name="status")
-    private String statusOffer;
+    private String status;
 
     @Column(name="paymentMode")
     private String paymentMode;
@@ -95,12 +95,12 @@ public class Offers implements Serializable {
         this.endDate = endDate;
     }
 
-    public String getStatusOffer() {
-        return statusOffer;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatusOffer(String statusOffer) {
-        this.statusOffer = statusOffer;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPaymentMode() {
@@ -121,7 +121,7 @@ public class Offers implements Serializable {
                 .append("validity",  validity)
                 .append("startDate", startDate)
                 .append("endDate" , endDate)
-                .append("status", statusOffer)
+                .append("status", status)
                 .append("paymentMode", paymentMode)
                 .toString();
     }

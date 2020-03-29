@@ -11,7 +11,10 @@ public interface WorldPayService {
 
     void addOffersByMerchant(String offer, String price, String currency, String validity, String paymentMode);
 
-    List<Offers> getOffersByMerchant(Optional<String> offer, Optional<String> paymentMode, Optional<String> currency);
+    List<Offers> getOffersByMerchant(Optional<String> offer, Optional<String> paymentMode,
+                                     Optional<String> currency, Optional<String> status);
 
-    void cancelOffersByMerchant(String offer);
+    void cancelOffersByMerchant(String offer) throws OfferNotFoundException;
+
+    void updateOffersByMerchant(String offer, String price, String endDate) throws OfferNotFoundException;
 }
