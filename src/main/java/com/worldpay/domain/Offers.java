@@ -36,6 +36,9 @@ public class Offers implements Serializable {
     @Column(name="status")
     private String statusOffer;
 
+    @Column(name="paymentMode")
+    private String paymentMode;
+
     public int getId() {
         return id;
     }
@@ -100,6 +103,14 @@ public class Offers implements Serializable {
         this.statusOffer = statusOffer;
     }
 
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
     @Override
     public String toString() {
         return new ToStringCreator(this)
@@ -111,6 +122,7 @@ public class Offers implements Serializable {
                 .append("startDate", startDate)
                 .append("endDate" , endDate)
                 .append("status", statusOffer)
+                .append("paymentMode", paymentMode)
                 .toString();
     }
 }

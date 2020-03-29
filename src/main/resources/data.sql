@@ -8,8 +8,9 @@ CREATE TABLE `tblOffers` (
      price VARCHAR(255) NOT NULL,
      currency VARCHAR(255) NOT NULL,
      validity VARCHAR(10) NOT NULL,
-     stmStartDate timestamp NOT NULL,
-     stmEndDate timestamp NOT NULL,
+     stmStartDate TIMESTAMP NOT NULL,
+     stmEndDate TIMESTAMP NOT NULL,
      status VARCHAR(255) NOT NULL,
+     paymentMode VARCHAR(255) NOT NULL,
      PRIMARY KEY (intOfferId)
 );

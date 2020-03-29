@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Controller class
@@ -24,14 +25,16 @@ public class WorldPayController{
 
     @PostMapping("/worldpay/createOffers")
     public void createOffersByMerchant(@RequestParam String offer,
-                                       @RequestParam String price, @RequestParam String validity){
+                                       @RequestParam String price, @RequestParam String currency,
+                                       @RequestParam String validity, @RequestParam String paymentMode){
 
-        worldPayService.addOffersByMerchant(offer, price, validity);
+        worldPayService.addOffersByMerchant(offer, price, currency, validity, paymentMode);
     }
 
     @GetMapping("/worldpay/availableOffers")
-    public List<Offers> availableOffersByMerchant(){
-        return worldPayService.getOffersByMerchant();
+    public List<Offers> availableOffersByMerchant(@RequestParam Optional<String> offer, @RequestParam Optional<String> paymentMode,
+                                                  @RequestParam Optional<String> currency){
+        return worldPayService.getOffersByMerchant(offer, paymentMode,currency);
     }
 
     @PutMapping("/worldpay/cancelOffers")
