@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.worldpay</groupId>
 	<artifactId>rg-worldpay-api</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 	<name>rg-worldpay-api</name>
 	<description>WorldPay API</description>
 
