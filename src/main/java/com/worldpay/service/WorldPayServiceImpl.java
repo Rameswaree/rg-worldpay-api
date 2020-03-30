@@ -16,8 +16,8 @@ import java.util.Optional;
 public class WorldPayServiceImpl implements WorldPayService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WorldPayServiceImpl.class);
-    private static final String ACTIVE_STATUS="ACTIVE";
-    private static final String EXPIRED_STATUS="EXPIRED";
+    public static final String ACTIVE_STATUS="ACTIVE";
+    public static final String EXPIRED_STATUS="EXPIRED";
     private OffersJpaRepository offersJpaRepository;
 
     @Autowired
