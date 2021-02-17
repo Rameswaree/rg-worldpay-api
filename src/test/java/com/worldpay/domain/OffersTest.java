@@ -3,7 +3,7 @@ package com.worldpay.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class OffersTest {
@@ -22,7 +22,7 @@ public class OffersTest {
     void shouldReturnValidityWhenValidityIsSet(){
        offers.setValidity(VALIDITY);
 
-       assertThat(offers.getValidity().equals(VALIDITY));
+       assertEquals(VALIDITY, offers.getValidity());
    }
 
     @Test
@@ -36,7 +36,7 @@ public class OffersTest {
     void shouldReturnOfferWhenOfferIsSet(){
         offers.setOffer(OFFER);
 
-        assertThat(offers.getOffer().equals(OFFER));
+        assertEquals(OFFER, offers.getOffer());
     }
 
     @Test
