@@ -14,7 +14,7 @@ Steps to run the application:
 
 1. Clone the git repository or download the extract zip file.
 2. Go to the path where the project is present and type 'mvn clean install' from the command terminal.
-3. After this, type 'java -jar target\rg-worldpay-api-1.6.0.jar' to run the application in Windows. (For Mac users, please type 'java -jar target/rg-worldpay-api-1.6.0.jar').
+3. After this, type 'java -jar target\rg-worldpay-api-1.8.0.jar' to run the application in Windows. (For Mac users, please type 'java -jar target/rg-worldpay-api-1.8.0.jar').
 4. Open the browser of your choice.
 5. Type "http://localhost:9999/worldpay/availableOffers". This will give an empty list.
 6. Go to the terminal and run the command 'curl -X POST "http://localhost:9999/worldpay/createOffers?offer=NEW_YEAR&price=20&currency=GBP&validity=30&paymentMode=CC/DC"'. This will add the data into the table and also on refreshing the browser, which contains the URL as shown in Step 5, will show the value present. Validity is present in days. Keep adding more offers and check the results in the browser.
