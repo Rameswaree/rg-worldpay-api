@@ -15,6 +15,7 @@ import java.util.Optional;
  * Copyright 2020-2021
  */
 @RestController
+@RequestMapping("/worldpay")
 public class WorldPayController{
 
     WorldPayService worldPayService;
@@ -24,7 +25,7 @@ public class WorldPayController{
         this.worldPayService = worldPayService;
     }
 
-    @PostMapping("/worldpay/createOffers")
+    @PostMapping("/createOffers")
     public void createOffersByMerchant(@RequestParam String offer,
                                        @RequestParam String price, @RequestParam String currency,
                                        @RequestParam String validity, @RequestParam String paymentMode){
@@ -32,19 +33,19 @@ public class WorldPayController{
         worldPayService.addOffersByMerchant(offer, price, currency, validity, paymentMode);
     }
 
-    @GetMapping("/worldpay/availableOffers")
+    @GetMapping("/availableOffers")
     public List<Offers> availableOffersByMerchant(@RequestParam Optional<String> offer, @RequestParam Optional<String> paymentMode,
                                                   @RequestParam Optional<String> currency, @RequestParam Optional<String> status){
         return worldPayService.getOffersByMerchant(offer, paymentMode,currency, status);
     }
 
-    @PutMapping("/worldpay/cancelOffers")
+    @PutMapping("/cancelOffers")
     public void cancelOffersByMerchant(@RequestParam String offer) throws OfferNotFoundException {
 
         worldPayService.cancelOffersByMerchant(offer);
     }
 
-    @PatchMapping("/worldpay/updateOffers")
+    @PatchMapping("/updateOffers")
     public void updateOffersByMerchant(@RequestParam String offer, @RequestParam String price,
                                        @RequestParam String endDate) throws OfferNotFoundException {
 
