@@ -18,7 +18,7 @@ public class WorldPayServiceImpl implements WorldPayService {
     private static final Logger LOGGER = LoggerFactory.getLogger(WorldPayServiceImpl.class);
     public static final String ACTIVE_STATUS="ACTIVE";
     public static final String EXPIRED_STATUS="EXPIRED";
-    private OffersJpaRepository offersJpaRepository;
+    private final OffersJpaRepository offersJpaRepository;
 
     @Autowired
     public WorldPayServiceImpl(OffersJpaRepository offersJpaRepository){
@@ -46,7 +46,7 @@ public class WorldPayServiceImpl implements WorldPayService {
     }
 
     @Override
-    public void cancelOffersByMerchant(String offer) throws OfferNotFoundException{
+    public void cancelOffersByMerchant(String offer) {
         Offers byOffer = offersJpaRepository.findByOfferIgnoreCase(offer);
 
         if(byOffer==null){
@@ -60,10 +60,10 @@ public class WorldPayServiceImpl implements WorldPayService {
     }
 
     @Override
-    public void updateOffersByMerchant(String offer, String price, String endDate) throws OfferNotFoundException{
+    public void updateOffersByMerchant(String offer, String price, String endDate) {
         Offers byOffer = offersJpaRepository.findByOfferIgnoreCase(offer);
         if(byOffer==null){
-            throw new OfferNotFoundException("The offer "+ offer + " is not present in the database for updation");
+            throw new OfferNotFoundException("The offer "+ offer + " is not present in the database for updating");
         }
             try{
                 LocalDateTime localDateTime = DateUtils.toLocalDateTime(endDate);
@@ -77,7 +77,7 @@ public class WorldPayServiceImpl implements WorldPayService {
                 if(EXPIRED_STATUS.equalsIgnoreCase(byOffer.getStatus()))
                     byOffer.setStatus(ACTIVE_STATUS);
             }catch (Exception e){
-                LOGGER.error("Exception occurred during offer updation: " + e);
+                LOGGER.error("Exception occurred while updating offer: {}", String.valueOf(e));
             }
             offersJpaRepository.save(byOffer);
     }
@@ -87,7 +87,7 @@ public class WorldPayServiceImpl implements WorldPayService {
 
         Offers byOffer = offersJpaRepository.findByOfferIgnoreCase(offer);
         if(byOffer!=null){
-            LOGGER.info("Offer " + byOffer.getOffer() + " is present in the database");
+            LOGGER.info("Offer {} is present in the database", byOffer.getOffer());
             return byOffer;
         }
         offers.setOffer(offer);

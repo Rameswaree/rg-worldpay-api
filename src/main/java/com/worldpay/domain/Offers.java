@@ -1,8 +1,8 @@
 package com.worldpay.domain;
 
+import jakarta.persistence.*;
 import org.springframework.core.style.ToStringCreator;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

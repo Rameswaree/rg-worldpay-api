@@ -10,9 +10,6 @@ import java.util.Optional;
 @Repository
 public interface OffersJpaRepository extends JpaRepository<Offers,Integer> {
 
-    Offers save(Offers offers);
-    List<Offers> findAll();
-
     List<Offers> findByOfferIgnoreCaseOrPaymentModeIgnoreCaseOrCurrencyIgnoreCaseOrStatusIgnoreCase(Optional<String> offer, Optional<String> paymentMode,
                                                     Optional<String> currency, Optional<String> status);
     Offers findByOfferIgnoreCase(String offer);
