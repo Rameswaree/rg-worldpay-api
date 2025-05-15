@@ -10,12 +10,12 @@
 	</parent>
 	<groupId>com.worldpay</groupId>
 	<artifactId>rg-worldpay-api</artifactId>
-	<version>1.10.0</version>
+	<version>1.11.0</version>
 	<name>rg-worldpay-api</name>
 	<description>WorldPay API</description>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 	</properties>
 
 	<dependencies>
@@ -41,6 +41,12 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
