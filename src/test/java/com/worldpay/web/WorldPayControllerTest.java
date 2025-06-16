@@ -1,6 +1,6 @@
 package com.worldpay.web;
 
-import com.worldpay.domain.Offers;
+import com.worldpay.entity.Offers;
 import com.worldpay.service.WorldPayService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

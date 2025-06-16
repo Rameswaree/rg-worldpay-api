@@ -1,7 +1,7 @@
 package com.worldpay.service;
 
-import com.worldpay.domain.Offers;
-import com.worldpay.repository.OffersJpaRepository;
+import com.worldpay.entity.Offers;
+import com.worldpay.repository.OffersRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +19,7 @@ public class WorldPayServiceImplTest {
     WorldPayServiceImpl worldPayService;
 
     @Mock
-    private OffersJpaRepository offersJpaRepository;
+    private OffersRepository offersRepository;
 
     private Offers offers;
 
@@ -38,15 +38,15 @@ public class WorldPayServiceImplTest {
     void shouldStoreOffersByMerchant(){
 
         worldPayService.addOffersByMerchant(OFFER, PRICE, CURRENCY, VALIDITY, PAYMENT_MODE);
-        verify(offersJpaRepository).findByOfferIgnoreCase(OFFER);
-        verify(offersJpaRepository).save(any());
+        verify(offersRepository).findByOfferIgnoreCase(OFFER);
+        verify(offersRepository).save(any());
     }
 
     @Test
     void shouldGetOffersByMerchant(){
 
-        when(offersJpaRepository.findByOfferIgnoreCase(OFFER)).thenReturn(offers);
+        when(offersRepository.findByOfferIgnoreCase(OFFER)).thenReturn(offers);
         worldPayService.getOffersByMerchant(any(),any(),any(),any());
-        verify(offersJpaRepository).findAll();
+        verify(offersRepository).findAll();
     }
 }

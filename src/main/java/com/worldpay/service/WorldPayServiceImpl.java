@@ -1,11 +1,10 @@
 package com.worldpay.service;
 
-import com.worldpay.domain.Offers;
-import com.worldpay.repository.OffersJpaRepository;
+import com.worldpay.entity.Offers;
+import com.worldpay.repository.OffersRepository;
 import com.worldpay.utils.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,33 +12,29 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class WorldPayServiceImpl implements WorldPayService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WorldPayServiceImpl.class);
-    public static final String ACTIVE_STATUS="ACTIVE";
-    public static final String EXPIRED_STATUS="EXPIRED";
-    private final OffersJpaRepository offersJpaRepository;
-
-    @Autowired
-    public WorldPayServiceImpl(OffersJpaRepository offersJpaRepository){
-        this.offersJpaRepository = offersJpaRepository;
-    }
+    private static final String ACTIVE_STATUS="ACTIVE";
+    private static final String EXPIRED_STATUS="EXPIRED";
+    private final OffersRepository offersRepository;
 
     @Override
     public void addOffersByMerchant(String offer, String price, String currency, String validity, String paymentMode) {
 
         Offers result = setNewOffer(offer, price, currency, validity, paymentMode);
-        offersJpaRepository.save(result);
+        offersRepository.save(result);
     }
 
     @Override
     public List<Offers> getOffersByMerchant(Optional<String> offer, Optional<String> paymentMode,
                                             Optional<String> currency, Optional<String> status) {
-        List<Offers> offersListByParams = offersJpaRepository.findByOfferIgnoreCaseOrPaymentModeIgnoreCaseOrCurrencyIgnoreCaseOrStatusIgnoreCase(offer, paymentMode, currency, status);
+        List<Offers> offersListByParams = offersRepository.findByOfferIgnoreCaseOrPaymentModeIgnoreCaseOrCurrencyIgnoreCaseOrStatusIgnoreCase(offer, paymentMode, currency, status);
 
-        List<Offers> offersList = offersJpaRepository.findAll();
+        List<Offers> offersList = offersRepository.findAll();
         if(offersListByParams.isEmpty()){
-            LOGGER.error("Offer list is not available when querying with the given parameters");
+            log.error("Offer list is not available when querying with the given parameters");
             return offersList;
         }
         return offersListByParams;
@@ -47,7 +42,7 @@ public class WorldPayServiceImpl implements WorldPayService {
 
     @Override
     public void cancelOffersByMerchant(String offer) {
-        Offers byOffer = offersJpaRepository.findByOfferIgnoreCase(offer);
+        Offers byOffer = offersRepository.findByOfferIgnoreCase(offer);
 
         if(byOffer==null){
             throw new OfferNotFoundException("The offer "+ offer + " is not present in the database for cancellation");
@@ -55,13 +50,13 @@ public class WorldPayServiceImpl implements WorldPayService {
         if(!EXPIRED_STATUS.equalsIgnoreCase(byOffer.getStatus())){
             byOffer.setEndDate(LocalDateTime.now());
             byOffer.setStatus(EXPIRED_STATUS);
-            offersJpaRepository.save(byOffer);
+            offersRepository.save(byOffer);
         }
     }
 
     @Override
     public void updateOffersByMerchant(String offer, String price, String endDate) {
-        Offers byOffer = offersJpaRepository.findByOfferIgnoreCase(offer);
+        Offers byOffer = offersRepository.findByOfferIgnoreCase(offer);
         if(byOffer==null){
             throw new OfferNotFoundException("The offer "+ offer + " is not present in the database for updating");
         }
@@ -70,24 +65,24 @@ public class WorldPayServiceImpl implements WorldPayService {
                 if(localDateTime.isAfter(LocalDateTime.now())) {
                     byOffer.setEndDate(localDateTime);
                 }else{
-                    LOGGER.info("End date cannot be behind current business date");
+                    log.info("End date cannot be behind current business date");
                     return;
                 }
                 byOffer.setPrice(price);
                 if(EXPIRED_STATUS.equalsIgnoreCase(byOffer.getStatus()))
                     byOffer.setStatus(ACTIVE_STATUS);
             }catch (Exception e){
-                LOGGER.error("Exception occurred while updating offer: {}", String.valueOf(e));
+                log.error("Exception occurred while updating offer: {}", String.valueOf(e));
             }
-            offersJpaRepository.save(byOffer);
+            offersRepository.save(byOffer);
     }
 
     private Offers setNewOffer(String offer, String price, String currency, String validity, String paymentMode) {
         Offers offers = new Offers();
 
-        Offers byOffer = offersJpaRepository.findByOfferIgnoreCase(offer);
+        Offers byOffer = offersRepository.findByOfferIgnoreCase(offer);
         if(byOffer!=null){
-            LOGGER.info("Offer {} is present in the database", byOffer.getOffer());
+            log.info("Offer {} is present in the database", byOffer.getOffer());
             return byOffer;
         }
         offers.setOffer(offer);

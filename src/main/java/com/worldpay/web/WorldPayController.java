@@ -1,9 +1,8 @@
 package com.worldpay.web;
 
-import com.worldpay.domain.Offers;
-import com.worldpay.service.OfferNotFoundException;
+import com.worldpay.entity.Offers;
 import com.worldpay.service.WorldPayService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,14 +15,10 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/worldpay")
+@AllArgsConstructor
 public class WorldPayController{
 
-    WorldPayService worldPayService;
-
-    @Autowired
-    public WorldPayController(WorldPayService worldPayService){
-        this.worldPayService = worldPayService;
-    }
+    private final WorldPayService worldPayService;
 
     @PostMapping("/createOffers")
     public void createOffersByMerchant(@RequestParam String offer,
@@ -40,14 +35,14 @@ public class WorldPayController{
     }
 
     @PutMapping("/cancelOffers")
-    public void cancelOffersByMerchant(@RequestParam String offer) throws OfferNotFoundException {
+    public void cancelOffersByMerchant(@RequestParam String offer) {
 
         worldPayService.cancelOffersByMerchant(offer);
     }
 
     @PatchMapping("/updateOffers")
     public void updateOffersByMerchant(@RequestParam String offer, @RequestParam String price,
-                                       @RequestParam String endDate) throws OfferNotFoundException {
+                                       @RequestParam String endDate) {
 
        worldPayService.updateOffersByMerchant(offer, price, endDate);
     }
