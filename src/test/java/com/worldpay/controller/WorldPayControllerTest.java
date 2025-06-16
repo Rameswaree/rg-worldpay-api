@@ -1,4 +1,4 @@
-package com.worldpay.web;
+package com.worldpay.controller;
 
 import com.worldpay.entity.Offers;
 import com.worldpay.service.WorldPayService;
