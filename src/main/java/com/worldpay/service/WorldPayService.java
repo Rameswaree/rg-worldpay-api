@@ -3,14 +3,13 @@ package com.worldpay.service;
 import com.worldpay.entity.Offers;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface WorldPayService {
 
     void addOffersByMerchant(String offer, String price, String currency, String validity, String paymentMode);
 
-    List<Offers> getOffersByMerchant(Optional<String> offer, Optional<String> paymentMode,
-                                     Optional<String> currency, Optional<String> status);
+    List<Offers> getOffersByMerchant(String offer, String paymentMode,
+                                     String currency, String status);
 
     void cancelOffersByMerchant(String offer);
 

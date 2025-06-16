@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -28,8 +27,8 @@ public class WorldPayServiceImpl implements WorldPayService {
     }
 
     @Override
-    public List<Offers> getOffersByMerchant(Optional<String> offer, Optional<String> paymentMode,
-                                            Optional<String> currency, Optional<String> status) {
+    public List<Offers> getOffersByMerchant(String offer, String paymentMode,
+                                            String currency, String status) {
         List<Offers> offersListByParams = offersRepository.findByOfferIgnoreCaseOrPaymentModeIgnoreCaseOrCurrencyIgnoreCaseOrStatusIgnoreCase(offer, paymentMode, currency, status);
 
         List<Offers> offersList = offersRepository.findAll();
